@@ -13,6 +13,10 @@ export function activate(ctx: vscode.ExtensionContext) {
     "unittest-ai.test.generate.function",
     generateTests.generateTestCurrentFunction
   );
+  registerCommand(
+    "unittest-ai.test.generate.file",
+    generateTests.generateTestCurrentFile
+  );
 }
 
 // This method is called when your extension is deactivated
