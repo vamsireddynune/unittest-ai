@@ -10,7 +10,18 @@ export class OpenAIClient implements IAIClient {
     this.openai = new OpenAIApi(configuration);
   }
 
-  async getUnitTests(prompt: string) {
+  async getUnitTests(
+    code: string,
+    fileName: string,
+    language: string,
+    onlyFunction: boolean
+  ) {
+    const prompt = `
+      Write unit tests using jest for business logic in the following ${language} ${
+      onlyFunction ? "function" : ""
+    } code from the file ${fileName}, use async await if necessary and add mocks if necessary, cover all possible test cases, and just respond with unit test file with code?
+      ${code}
+    `;
     const completion = await this.openai.createCompletion({
       model: "text-davinci-003",
       prompt,

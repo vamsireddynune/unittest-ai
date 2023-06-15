@@ -4,7 +4,7 @@ import { ConfigurationTarget } from "vscode";
 const providerAPIKey = "providerApiKey";
 
 export const checkAndPromptForAPIKey = async () => {
-  const extensionConfig = vscode.workspace.getConfiguration("unittest-ai");
+  const extensionConfig = getConfiguration();
   const apiKey = extensionConfig.get(providerAPIKey) as string;
   if (!apiKey) {
     const apiKeyInput = await vscode.window.showInputBox({
@@ -25,4 +25,13 @@ export const checkAndPromptForAPIKey = async () => {
     }
   }
   return apiKey;
+};
+
+export const getConfigurationValue = (key: string) => {
+  const extensionConfig = getConfiguration();
+  return extensionConfig.get(key) as string;
+};
+
+export const getConfiguration = () => {
+  return vscode.workspace.getConfiguration("unittest-ai");
 };

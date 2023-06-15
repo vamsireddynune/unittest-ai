@@ -1,3 +1,13 @@
 export interface IAIClient {
-  getUnitTests: (prompt: string) => Promise<any>;
+  getUnitTests: (
+    code: string,
+    fileName: string,
+    language: string,
+    onlyFunction: boolean
+  ) => Promise<any>;
+}
+
+export enum AIProviders {
+  OpenAI = "OpenAI",
+  ANTHROPIC = "Anthropic",
 }

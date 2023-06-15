@@ -40,7 +40,8 @@
         "unittest-ai.provider": {
           "type": "string",
           "enum": [
-            "OpenAI"
+            "OpenAI",
+            "Anthropic"
           ],
           "default": "OpenAI",
           "description": "Choose the preferred LLM API provider to generate unit tests.",
@@ -86,6 +87,7 @@
     "webpack-cli": "^5.1.1"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.4.4",
     "openai": "^3.2.1"
   }
 }

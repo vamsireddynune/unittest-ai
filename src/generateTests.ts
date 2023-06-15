@@ -2,7 +2,11 @@ import vscode = require("vscode");
 import { CommandFactory } from "./commands";
 import { UnitTestProvider } from "./providers/unitTestProvider";
 import { writeFileSync } from "fs";
-import { checkAndPromptForAPIKey } from "./configuration";
+import {
+  checkAndPromptForAPIKey,
+  getConfigurationValue,
+} from "./configuration";
+import { AIProviders } from "./providers";
 
 const supportedFileExtensions: Record<string, string> = {
   ts: "typescript",
@@ -76,11 +80,15 @@ const generateTests = async (completeFile: boolean) => {
         .slice(fileExtensionIndex + 1)
         .toLocaleLowerCase();
       const fileName = fileNames.pop();
-      const unittestProvider = new UnitTestProvider(apiKey);
+      const unittestProvider = new UnitTestProvider(
+        apiKey,
+        getConfigurationValue("provider") as AIProviders
+      );
       const unittests = await unittestProvider.getUnitTests(
         selection,
         `${fileName}.${fileExtension}` as string,
-        supportedFileExtensions[fileExtension] as string
+        supportedFileExtensions[fileExtension] as string,
+        !completeFile
       );
 
       const filePath =
