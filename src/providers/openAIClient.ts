@@ -17,9 +17,12 @@ export class OpenAIClient implements IAIClient {
     onlyFunction: boolean
   ) {
     const prompt = `
-      Write unit tests using jest for business logic in the following ${language} ${
+      Write all possible unit tests using jest for business logic in the following ${language} ${
       onlyFunction ? "function" : ""
-    } code from the file ${fileName}, use async await if necessary and add mocks if necessary, cover all possible test cases, and just respond with unit test file with code?
+    } code from the file ${fileName}.
+      In test cases, mock any third party dependencies when necessary, and use async await for asynchronous code,
+      just respond with unit test file with code covering all possible test cases along with file depenedencies.
+      Don't return any description, or comments, or examples.
       ${code}
     `;
     const completion = await this.openai.createCompletion({
